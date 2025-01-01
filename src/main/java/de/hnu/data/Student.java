@@ -1,11 +1,27 @@
 package de.hnu.data;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "STUDENT")
 public class Student {
-    private long enrollmentNr;
+
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long enrollmentNr;
+    
+    @Column(nullable = true)
     private String firstName;
+
+    @Column(nullable = true)
     private String lastName;
 
-    public Student(long enrollmentNr, String firstName, String lastName) {
+    public Student(Long enrollmentNr, String firstName, String lastName) {
         this.enrollmentNr = enrollmentNr;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -14,11 +30,11 @@ public class Student {
     public Student() {
     }
 
-    public long getEnrollmentNr() {
+    public Long getEnrollmentNr() {
         return enrollmentNr;
     }
 
-    public void setEnrollmentNr(long enrollmentNr) {
+    public void setEnrollmentNr(Long enrollmentNr) {
         this.enrollmentNr = enrollmentNr;
     }
 

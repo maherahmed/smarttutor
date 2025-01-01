@@ -53,7 +53,7 @@ public class AppConfig {
   @Bean
   public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
     JpaTransactionManager txManager = new JpaTransactionManager();
-    txManager.setEntityManagerFactory(entityManagerFactory.getNativeEntityManagerFactory());
+    txManager.setEntityManagerFactory(entityManagerFactory.getObject());
     return txManager;
   } 
 
