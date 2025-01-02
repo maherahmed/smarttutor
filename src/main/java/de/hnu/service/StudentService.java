@@ -1,7 +1,9 @@
 package de.hnu.service;
 
-import de.hnu.StudentController;
+import de.hnu.controller.StudentController;
+import de.hnu.data.Course;
 import de.hnu.data.Student;
+import de.hnu.repository.CourseRepository;
 import de.hnu.repository.StudentRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,7 +11,8 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 @Service
 public class StudentService {
-    
+
     private final StudentRepository studentRepository;
     private static final Logger logger = LogManager.getLogger(StudentController.class);
 
@@ -43,7 +46,23 @@ public class StudentService {
         return studentRepository.findById(enrollmentNr);
     }
 
-    public void deleteAllStudents(){
+    public void deleteAllStudents() {
         studentRepository.deleteAll();
     }
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    public void enrollStudentInCourse(Long studentId, Long courseId) {
+        Student student = studentRepository.findById(studentId)
+                .orElse(null);
+        Course course = courseRepository.findById(courseId)
+                .orElse(null);
+        // .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: "
+        // + courseId));
+
+        student.getCourses().add(course);
+        studentRepository.save(student);
+    }
+
 }

@@ -96,6 +96,11 @@
             <version>6.6.3.Final</version>
         </dependency>
 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version> <!-- or the latest version -->
+        </dependency>
     </dependencies>
 
     <build>
